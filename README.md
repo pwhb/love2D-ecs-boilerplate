@@ -8,6 +8,12 @@ Combined, LÖVE and ECS give you a powerful recipe for pure creativity with maxi
 
 ---
 
+## lumara Branch
+
+This branch is for game engine features that I want in my personal projects.
+
+---
+
 ## 🧩 ECS Library
 
 This project uses **[ecs-lua](https://github.com/nidorx/ecs-lua)** by **[nidorx](https://github.com/nidorx)**, which is included in the `lib` directory.
