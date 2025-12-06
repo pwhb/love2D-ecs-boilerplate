@@ -3,14 +3,14 @@ local Components = require("src.components.init")
 local Systems = require("src.systems.init")
 
 local world
-local player
+local player1, player2
 local Game = {}
 
 function Game:load()
 
     world = ECS.World(Systems.list)
 
-    player = world:Entity(Components.Position({
+    player1 = world:Entity(Components.Position({
         x = 100,
         y = 100
     }), Components.Velocity({
@@ -20,7 +20,24 @@ function Game:load()
         color = {1, 0.5, 0.5},
         width = 40,
         height = 40
-    }), Components.Input())
+    }), Components.Input(), Components.ControlDevice({
+        device_type = "keyboard",
+        joystick_id = nil
+    }))
+
+    player2 = world:Entity(Components.Position({
+        x = 300,
+        y = 100
+    }), Components.Velocity({
+        vx = 0,
+        vy = 0
+    }), Components.Drawable({
+        color = {1, 0.75, 0.25},
+        width = 40,
+        height = 40
+    }), Components.Input(), Components.ControlDevice({
+        device_type = "keyboard_alt"
+    }))
 
     world:Entity(Components.Position({
         x = 300,
