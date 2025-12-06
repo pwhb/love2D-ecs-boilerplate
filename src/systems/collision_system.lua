@@ -1,10 +1,10 @@
 local ECS = require("lib.ECS")
 local Position = require("src.components.position")
 local Drawable = require("src.components.drawable")
-local Collider = require("src.components.collider")
+local Collision = require("src.components.collision")
 local Destroy = require("src.components.destroy")
 
-local CollisionSystem = ECS.System("process", ECS.Query.All(Position, Drawable, Collider))
+local CollisionSystem = ECS.System("process", ECS.Query.All(Position, Drawable, Collision))
 
 function check_overlap(entity_a, entity_b)
     local pos_a = entity_a[Position]
@@ -32,19 +32,18 @@ function CollisionSystem:Update()
 
     for i = 1, num_collidables do
         local entity_a = collidables_snapshot[i]
-        local collider_a = entity_a[Collider]
-        local group_a = collider_a.collision_group
+        local collision_a = entity_a[Collision]
+        local group_a = collision_a.collision_group
 
         for j = i + 1, num_collidables do
             local entity_b = collidables_snapshot[j]
-            local collider_b = entity_b[Collider]
-            local group_b = collider_b.collision_group
+            local collision_b = entity_b[Collision]
+            local group_b = collision_b.collision_group
             if check_overlap(entity_a, entity_b) then
                 if (group_a == "player" and group_b == "enemy") or (group_a == "enemy" and group_b == "player") then
                     local enemy_entity = (group_a == "enemy") and entity_a or entity_b
                     if not enemy_entity[Destroy] then
                         enemy_entity[Destroy] = {}
-                        print("Marked Enemy (ID:", enemy_entity.id, ") for destruction.")
                     end
 
                 end

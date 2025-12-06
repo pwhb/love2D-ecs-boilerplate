@@ -22,7 +22,6 @@ local Systems = {
 function Systems.setup(world_instance)
     for _, system in ipairs(systems_list) do
         if system.setWorld then
-            print("setting world for", system)
             system:setWorld(world_instance)
         end
     end

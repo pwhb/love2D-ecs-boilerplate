@@ -1,0 +1,3 @@
+return ECS.Component({
+    scoreboard = {}
+})

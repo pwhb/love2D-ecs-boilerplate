@@ -8,6 +8,9 @@ local Game = {}
 local screen_w = love.graphics.getWidth()
 local screen_h = love.graphics.getHeight()
 
+local DEFAULT_WIDTH = 20
+local DEFAULT_HEIGHT = 40
+
 function Game:load()
     love.math.setRandomSeed(os.time())
 
@@ -22,28 +25,28 @@ function Game:load()
         vy = 0
     }), Components.Drawable({
         color = {1, 0.5, 0.5},
-        width = 40,
-        height = 40
+        width = DEFAULT_WIDTH,
+        height = DEFAULT_HEIGHT
     }), Components.Boundary(), Components.ControlInput(), Components.ControlDevice({
         device_type = "keyboard",
         joystick_id = nil
-    }), Components.Collider({
+    }), Components.Collision({
         collision_group = "player"
     }))
 
     player2 = Game.world:Entity(Components.Position({
-        x = screen_w - 100 - 40,
-        y = screen_h - 100 - 40
+        x = screen_w - 100 - DEFAULT_WIDTH,
+        y = screen_h - 100 - DEFAULT_HEIGHT
     }), Components.Velocity({
         vx = 0,
         vy = 0
     }), Components.Drawable({
         color = {1, 0.75, 0.25},
-        width = 40,
-        height = 40
+        width = DEFAULT_WIDTH,
+        height = DEFAULT_HEIGHT
     }), Components.Boundary(), Components.ControlInput(), Components.ControlDevice({
         device_type = "keyboard_alt"
-    }), Components.Collider({
+    }), Components.Collision({
         collision_group = "player"
     }))
 
@@ -58,9 +61,9 @@ function Game:load()
             vy = 20
         }), Components.Drawable({
             color = {0.5, 0.5, 1},
-            width = 40,
-            height = 40
-        }), Components.Wander({}), Components.Collider({
+            width = DEFAULT_WIDTH,
+            height = DEFAULT_HEIGHT
+        }), Components.Wander({}), Components.Collision({
             collision_group = "enemy"
         }))
     end
@@ -82,7 +85,7 @@ function Game:draw()
     Game.world:Update("render", now)
 
     love.graphics.setColor(1, 1, 1)
-    love.graphics.print("ESC to quit. Two entities moving with ECS.", 10, 10)
+    love.graphics.print("ESC to quit.", 10, 10)
 end
 
 function Game:keypressed(key)
