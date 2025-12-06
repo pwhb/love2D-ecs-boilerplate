@@ -15,10 +15,11 @@ function WanderSystem:Update()
         wander.time_to_change = wander.time_to_change - self.dt
 
         if wander.time_to_change <= 0 then
-            wander.time_to_change = wander.turn_rate
+            local range = wander.turn_rate_max - wander.turn_rate_min
+            wander.time_to_change = love.math.random() * range + wander.turn_rate_min
             local target_angle = 0
             if wander.roam_type == "random" then
-                target_angle = math.random() * math.pi * 2
+                target_angle = love.math.random() * math.pi * 2
             end
             vel.vx = math.cos(target_angle) * wander.speed
             vel.vy = math.sin(target_angle) * wander.speed

@@ -2,15 +2,19 @@ local ECS = require("lib.ECS")
 local Components = require("src.components.init")
 local Systems = require("src.systems.init")
 
-local world
 local player1, player2
 local Game = {}
 
+local screen_w = love.graphics.getWidth()
+local screen_h = love.graphics.getHeight()
+
 function Game:load()
+    love.math.setRandomSeed(os.time())
 
-    world = ECS.World(Systems.list)
+    Game.world = ECS.World(Systems.systems_list)
+    Systems.setup(Game.world)
 
-    player1 = world:Entity(Components.Position({
+    player1 = Game.world:Entity(Components.Position({
         x = 100,
         y = 100
     }), Components.Velocity({
@@ -23,11 +27,13 @@ function Game:load()
     }), Components.Boundary(), Components.ControlInput(), Components.ControlDevice({
         device_type = "keyboard",
         joystick_id = nil
+    }), Components.Collider({
+        collision_group = "player"
     }))
 
-    player2 = world:Entity(Components.Position({
-        x = 300,
-        y = 100
+    player2 = Game.world:Entity(Components.Position({
+        x = screen_w - 100 - 40,
+        y = screen_h - 100 - 40
     }), Components.Velocity({
         vx = 0,
         vy = 0
@@ -37,12 +43,14 @@ function Game:load()
         height = 40
     }), Components.Boundary(), Components.ControlInput(), Components.ControlDevice({
         device_type = "keyboard_alt"
+    }), Components.Collider({
+        collision_group = "player"
     }))
 
-    for i = 1, 10 do
-        x = math.random(0, 800)
-        y = math.random(0, 600)
-        world:Entity(Components.Position({
+    for i = 1, 50 do
+        x = love.math.random(0, screen_w)
+        y = love.math.random(0, screen_h)
+        Game.world:Entity(Components.Position({
             x = x,
             y = y
         }), Components.Velocity({
@@ -50,9 +58,11 @@ function Game:load()
             vy = 20
         }), Components.Drawable({
             color = {0.5, 0.5, 1},
-            width = 20,
-            height = 20
-        }), Components.Wander({}))
+            width = 40,
+            height = 40
+        }), Components.Wander({}), Components.Collider({
+            collision_group = "enemy"
+        }))
     end
 
 end
@@ -63,13 +73,13 @@ function Game:update(dt)
     Systems.WanderSystem.dt = dt
 
     local now = love.timer.getTime()
-    world:Update("process", now)
+    Game.world:Update("process", now)
 end
 
 function Game:draw()
 
     local now = love.timer.getTime()
-    world:Update("render", now)
+    Game.world:Update("render", now)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.print("ESC to quit. Two entities moving with ECS.", 10, 10)

@@ -1,6 +1,4 @@
-return ECS.Component(function(param)
-    return {
-        x = param.x or 0,
-        y = param.y or 0
-    }
-end)
+return ECS.Component({
+    x = 0,
+    y = 0
+})

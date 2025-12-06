@@ -5,5 +5,7 @@ return {
     ControlInput = require("src.components.control_input"),
     ControlDevice = require("src.components.control_device"),
     Boundary = require("src.components.boundary"),
-    Wander = require("src.components.wander")
+    Wander = require("src.components.wander"),
+    Collider = require("src.components.collider"),
+    Destroy = require("src.components.destroy")
 }
