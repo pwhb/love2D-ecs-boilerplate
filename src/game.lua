@@ -14,13 +14,13 @@ function Game:load()
         x = 100,
         y = 100
     }), Components.Velocity({
-        vx = 50,
-        vy = 50
+        vx = 0,
+        vy = 0
     }), Components.Drawable({
         color = {1, 0.5, 0.5},
         width = 40,
         height = 40
-    }))
+    }), Components.Input())
 
     world:Entity(Components.Position({
         x = 300,
@@ -56,6 +56,10 @@ function Game:keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
+end
+
+function Game:keyreleased(key)
+
 end
 
 return Game

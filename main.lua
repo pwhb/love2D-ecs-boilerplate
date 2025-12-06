@@ -15,3 +15,7 @@ end
 function love.keypressed(key)
     Game:keypressed(key)
 end
+
+function love.keyreleased(key)
+    Game:keyreleased(key)
+end

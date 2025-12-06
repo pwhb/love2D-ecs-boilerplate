@@ -1,5 +1,6 @@
 return {
     Position = require("src.components.position"),
     Velocity = require("src.components.velocity"),
-    Drawable = require("src.components.drawable")
+    Drawable = require("src.components.drawable"),
+    Input = require("src.components.input")
 }
