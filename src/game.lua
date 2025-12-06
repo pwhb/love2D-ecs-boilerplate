@@ -20,7 +20,7 @@ function Game:load()
         color = {1, 0.5, 0.5},
         width = 40,
         height = 40
-    }), Components.Input(), Components.ControlDevice({
+    }), Components.Boundary(), Components.ControlInput(), Components.ControlDevice({
         device_type = "keyboard",
         joystick_id = nil
     }))
@@ -35,7 +35,7 @@ function Game:load()
         color = {1, 0.75, 0.25},
         width = 40,
         height = 40
-    }), Components.Input(), Components.ControlDevice({
+    }), Components.Boundary(), Components.ControlInput(), Components.ControlDevice({
         device_type = "keyboard_alt"
     }))
 
