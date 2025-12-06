@@ -39,22 +39,28 @@ function Game:load()
         device_type = "keyboard_alt"
     }))
 
-    world:Entity(Components.Position({
-        x = 300,
-        y = 150
-    }), Components.Velocity({
-        vx = -20,
-        vy = 20
-    }), Components.Drawable({
-        color = {0.5, 0.5, 1},
-        width = 20,
-        height = 20
-    }))
+    for i = 1, 10 do
+        x = math.random(0, 800)
+        y = math.random(0, 600)
+        world:Entity(Components.Position({
+            x = x,
+            y = y
+        }), Components.Velocity({
+            vx = -20,
+            vy = 20
+        }), Components.Drawable({
+            color = {0.5, 0.5, 1},
+            width = 20,
+            height = 20
+        }), Components.Wander({}))
+    end
+
 end
 
 function Game:update(dt)
 
     Systems.MovementSystem.dt = dt
+    Systems.WanderSystem.dt = dt
 
     local now = love.timer.getTime()
     world:Update("process", now)
