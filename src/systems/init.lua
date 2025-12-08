@@ -5,8 +5,9 @@ local BoundarySystem = require("src.systems.boundary_system")
 local WanderSystem = require("src.systems.wander_system")
 local CollisionSystem = require("src.systems.collision_system")
 local CleanUpSystem = require("src.systems.clean_up_system")
+local AnimationSystem = require("src.systems.animation_system")
 local systems_list = {ControlInputSystem, WanderSystem, MovementSystem, BoundarySystem, CollisionSystem, CleanUpSystem,
-                      RenderSystem}
+                      AnimationSystem, RenderSystem}
 
 local Systems = {
     systems_list = systems_list,
@@ -16,6 +17,7 @@ local Systems = {
     BoundarySystem = BoundarySystem,
     CollisionSystem = CollisionSystem,
     CleanUpSystem = CleanUpSystem,
+    AnimationSystem = AnimationSystem,
     RenderSystem = RenderSystem
 }
 

@@ -1,9 +1,10 @@
 local ECS = require("lib.ECS")
 
 return ECS.Component({
-    current_clip_key = 0,
-    frame_duration = 1,
+    current_action_key = nil,
+    current_clip_key = nil,
+    frame_index = 1,
+    frame_duration = 0.05,
     timer = 0,
-    frame_index = 0,
     is_looping = false
 })
